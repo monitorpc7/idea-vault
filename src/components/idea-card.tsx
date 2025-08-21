@@ -16,7 +16,7 @@ interface IdeaCardProps {
 
 export function IdeaCard({ idea }: IdeaCardProps) {
   return (
-    <Card className="flex flex-col h-full transition-transform transform hover:-translate-y-1 hover:shadow-xl bg-card">
+    <Card className="flex flex-col h-full transition-all transform hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10 bg-card/80 backdrop-blur-sm border-primary/10 hover:border-primary/30">
       <CardHeader>
         <CardTitle>{idea.title}</CardTitle>
         <CardDescription className="text-xs">
@@ -31,7 +31,7 @@ export function IdeaCard({ idea }: IdeaCardProps) {
       <CardFooter>
         <div className="flex flex-wrap gap-2">
           {idea.tags.map((tag) => (
-            <Badge key={tag} variant="secondary">{tag}</Badge>
+            <Badge key={tag} variant="secondary" className="font-normal">{tag}</Badge>
           ))}
         </div>
       </CardFooter>
