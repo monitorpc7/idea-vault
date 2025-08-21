@@ -2,7 +2,6 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { supabase } from './supabaseClient';
 import type { Idea } from './types';
@@ -62,7 +61,6 @@ export async function createIdea(formData: FormData) {
   }
 
   revalidatePath('/');
-  redirect('/');
 }
 
 export async function updateIdea(formData: FormData) {
@@ -100,7 +98,6 @@ export async function updateIdea(formData: FormData) {
   }
 
   revalidatePath('/');
-  redirect('/');
 }
 
 export async function deleteIdea(id: string) {
@@ -117,5 +114,4 @@ export async function deleteIdea(id: string) {
   }
 
   revalidatePath('/');
-  redirect('/');
 }
