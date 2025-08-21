@@ -56,7 +56,7 @@ export function IdeaStats({ ideas }: IdeaStatsProps) {
 
     if (tagCounts.length === 0) {
         return (
-            <Card className="col-span-1 lg:col-span-4">
+            <Card className="col-span-1 lg:col-span-4 bg-card/60 backdrop-blur-xl border-primary/20">
               <CardHeader>
                 <CardTitle>Tag Distribution</CardTitle>
                 <CardDescription>No tags found. Add ideas with tags to see stats.</CardDescription>
@@ -69,7 +69,7 @@ export function IdeaStats({ ideas }: IdeaStatsProps) {
     }
 
   return (
-    <Card className="col-span-1 lg:col-span-4 backdrop-blur-sm bg-card/80 border-primary/10">
+    <Card className="col-span-1 lg:col-span-4 bg-card/60 backdrop-blur-xl border-primary/20">
       <CardHeader>
         <CardTitle>Tag Distribution</CardTitle>
         <CardDescription>An overview of your most used tags.</CardDescription>
@@ -78,7 +78,7 @@ export function IdeaStats({ ideas }: IdeaStatsProps) {
         <ChartContainer config={chartConfig} className="h-[300px] w-full">
             <ResponsiveContainer>
                 <BarChart data={tagCounts} margin={{ top: 20, right: 20, left: -10, bottom: 5 }} accessibilityLayer>
-                    <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                    <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
                     <XAxis 
                         dataKey="name" 
                         tickLine={false} 

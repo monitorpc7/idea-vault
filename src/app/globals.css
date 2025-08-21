@@ -4,24 +4,24 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 4% 10%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
     --primary: 262.1 83.3% 57.8%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 93%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 0 0% 93%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --secondary: 240 4% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 4% 15%;
+    --muted-foreground: 0 0% 63.9%;
     --accent: 340.9 83.1% 62.2%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 40.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
+    --border: 240 4% 25%;
+    --input: 240 4% 20%;
     --ring: 262.1 83.3% 57.8%;
     --radius: 0.8rem;
     --chart-1: 262 82% 57%;
@@ -46,10 +46,10 @@
     --muted-foreground: 0 0% 63.9%;
     --accent: 340.9 83.1% 62.2%;
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 62.8% 40.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 4% 15%;
-    --input: 240 4% 15%;
+    --border: 240 4% 25%;
+    --input: 240 4% 20%;
     --ring: 262.1 83.3% 57.8%;
     --chart-1: 262 82% 57%;
     --chart-2: 340 82% 57%;
@@ -65,5 +65,13 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(at 27% 37%, hsla(var(--primary), 0.2) 0px, transparent 50%),
+      radial-gradient(at 97% 21%, hsla(var(--accent), 0.2) 0px, transparent 50%),
+      radial-gradient(at 52% 99%, hsla(var(--chart-2), 0.2) 0px, transparent 50%),
+      radial-gradient(at 10% 29%, hsla(var(--chart-3), 0.2) 0px, transparent 50%),
+      radial-gradient(at 97% 96%, hsla(var(--chart-4), 0.1) 0px, transparent 50%),
+      radial-gradient(at 33% 50%, hsla(var(--chart-5), 0.15) 0px, transparent 50%),
+      radial-gradient(at 79% 53%, hsla(var(--primary), 0.15) 0px, transparent 50%);
   }
 }

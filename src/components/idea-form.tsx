@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
-import { createIdea } from '@/lib/actions';
+import { createIdea, updateIdea } from '@/lib/actions';
 import { suggestTags } from '@/ai/flows/suggest-tags';
 import { Button } from '@/components/ui/button';
 import {
@@ -21,6 +21,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Loader2, Sparkles, X } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import type { Idea } from '@/lib/types';
 
 const formSchema = z.object({
   title: z.string().min(3, { message: 'Title must be at least 3 characters.' }),
@@ -29,12 +30,13 @@ const formSchema = z.object({
 
 type IdeaFormProps = {
   onFormSubmit: () => void;
+  idea?: Idea;
 };
 
-export function IdeaForm({ onFormSubmit }: IdeaFormProps) {
+export function IdeaForm({ onFormSubmit, idea }: IdeaFormProps) {
   const router = useRouter();
   const { toast } = useToast();
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>(idea?.tags || []);
   const [tagInput, setTagInput] = useState('');
   const [suggestedTags, setSuggestedTags] = useState<string[]>([]);
   const [isSuggesting, setIsSuggesting] = useState(false);
@@ -42,11 +44,11 @@ export function IdeaForm({ onFormSubmit }: IdeaFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: '',
-      content: '',
+      title: idea?.title || '',
+      content: idea?.content || '',
     },
   });
-  
+
   const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' || e.key === ',') {
       e.preventDefault();
@@ -82,7 +84,7 @@ export function IdeaForm({ onFormSubmit }: IdeaFormProps) {
     setIsSuggesting(true);
     try {
       const result = await suggestTags({ ideaContent: content });
-      setSuggestedTags(result.tags.filter(tag => !tags.includes(tag)));
+      setSuggestedTags(result.tags.filter(tag => !tags.includes(tag) && !tag.includes(tag)));
     } catch (error) {
       console.error('Failed to suggest tags:', error);
       toast({
@@ -97,11 +99,19 @@ export function IdeaForm({ onFormSubmit }: IdeaFormProps) {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const formData = new FormData();
+    if(idea?.id) {
+      formData.append('id', idea.id);
+    }
     formData.append('title', values.title);
     formData.append('content', values.content);
     formData.append('tags', tags.join(','));
     
-    await createIdea(formData);
+    if (idea) {
+      await updateIdea(formData);
+    } else {
+      await createIdea(formData);
+    }
+    
     onFormSubmit();
     router.refresh(); // Refresh page to see new idea without a full reload
   };
@@ -127,7 +137,7 @@ export function IdeaForm({ onFormSubmit }: IdeaFormProps) {
           name="content"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Content (Rich Text Editor)</FormLabel>
+              <FormLabel>Content</FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Describe your idea in detail..."
@@ -181,7 +191,7 @@ export function IdeaForm({ onFormSubmit }: IdeaFormProps) {
 
         <Button type="submit" disabled={form.formState.isSubmitting} className="mt-4">
           {form.formState.isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin"/>}
-          Save Idea
+          {idea ? 'Save Changes' : 'Save Idea'}
         </Button>
       </form>
     </Form>

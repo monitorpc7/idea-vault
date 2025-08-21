@@ -18,7 +18,7 @@ async function IdeaList() {
 
   if (ideas.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed bg-card/50 p-12 text-center mt-8 col-span-1 lg:col-span-3">
+      <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-border/60 bg-card/30 p-12 text-center mt-8 col-span-1 lg:col-span-3">
         <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 mb-4">
           <Lightbulb className="h-10 w-10 text-primary" />
         </div>
@@ -43,7 +43,7 @@ function IdeaListSkeleton() {
   return (
     <>
       {Array.from({ length: 6 }).map((_, i) => (
-        <div key={i} className="flex flex-col space-y-3 rounded-lg border bg-card p-6">
+        <div key={i} className="flex flex-col space-y-3 rounded-lg border bg-card/80 p-6 border-border/50">
           <Skeleton className="h-6 w-3/4" />
           <Skeleton className="h-4 w-1/4" />
           <div className="space-y-2 pt-4">
@@ -68,7 +68,7 @@ async function Stats() {
 
 function StatsSkeleton() {
   return (
-    <Card className="col-span-1 lg:col-span-4 h-[400px]">
+    <Card className="col-span-1 lg:col-span-4 h-[400px] bg-card/60 backdrop-blur-xl border-primary/20">
       <CardHeader>
         <Skeleton className="h-7 w-48" />
         <Skeleton className="h-4 w-64" />
@@ -83,7 +83,7 @@ function StatsSkeleton() {
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen w-full flex-col bg-muted/20">
+    <div className="flex min-h-screen w-full flex-col bg-background/95">
       <Header />
       <main className="flex-1">
         <div className="container max-w-screen-2xl py-8">

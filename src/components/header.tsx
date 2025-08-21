@@ -4,7 +4,7 @@ import { NewIdeaSheet } from '@/components/new-idea-sheet';
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-lg">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-lg">
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <div className="mr-4 flex items-center">
           <BrainCircuit className="h-6 w-6 mr-2 text-primary" />
